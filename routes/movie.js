@@ -5,7 +5,19 @@ const router = express.Router();
 const Movie = require('../model/Movie.js');
 
 router.get('/', (req, res)=>{
-	const promise = Movie.find({ });
+	const promise = Movie.aggregate([
+		{
+			$lookup:{
+				from: 'directors',
+				localField: 'director_id',
+				foreignField: '_id',
+				as: 'director'
+			}
+		},
+		{
+			$unwind: '$director'
+		}
+	])
 	promise.then((data)=>{
 		res.json(data);
 	}).catch((error)=>{
@@ -66,11 +78,12 @@ router.delete('/:movie_id', (req, res, next)=>{
 });
 
 router.post('/', (req, res, next) => {
-	const { title, imdb_score, category, country, year } = req.body;
+	const { director_id, title, imdb, category, country, year } = req.body;
 
 	const movie = new Movie({
+		director_id: director_id,
 		title: title,
-		imdb_score: imdb_score,
+		imdb: imdb,
 		category: category,
 		country: country,
 		year: year
