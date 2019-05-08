@@ -110,8 +110,9 @@ router.delete('/:director_id', (req, res, next)=>{
     promise.then((director)=>{
         if(!director)
             next({'message': 'The director was not found.'});
-        res.json({'status': '1'})
-    }).catch((err)=>{
+        
+            res.json({ status: 1 });
+        }).catch((err)=>{
         res.json(err);
     })
 })
