@@ -1,3 +1,5 @@
+[![Build status](https://api.travis-ci.org/muammertop/nodejs-movie-api-example.svg)](https://travis-ci.org/muammertop/nodejs-movie-api-example)
+
 **I'm learning Node.js 💯**
 
 # Movies
